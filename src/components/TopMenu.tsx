@@ -14,10 +14,10 @@ export default function TopMenu() {
             <Image src={"/img/logo.jpg"} className={styles.logoimg} alt="logo" width={0} height={0} sizes="100vh" />
             <div className={styles.itemcontainer}>
                 <span className={styles.itemLabel}>Menu Item</span>
-                <TopMenuItem title="Booking" pageRef="/booking" />
+                <TopMenuItem title="Booking" pageRef="/reservation" />
             </div>
 
-            <Link href="/mybooking">
+            <Link href="/myreservation">
                 <div className="flex items-center h-full px-2 text-black-600 text-sm">
                         MY BOOKING
                 </div>

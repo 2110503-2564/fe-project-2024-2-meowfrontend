@@ -1,5 +1,5 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import { bookSlice } from "./features/bookSlice";
+import { reserveSlice } from "./features/reserveSlice";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
 import { persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
 import createWebStorage from "redux-persist/lib/storage/createWebStorage";
@@ -33,7 +33,7 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-  bookSlice: bookSlice.reducer,
+  reserveSlice: reserveSlice.reducer,
 });
 
 // ใช้ persistReducer เพื่อเก็บข้อมูล Redux ด้วย redux-persist

@@ -4,7 +4,7 @@ import DateReserve from "@/components/DateReserve";
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { addBooking, setVenueItems } from "@/redux/features/bookSlice"; // เพิ่ม import setVenueItems
+import { addReservation, setReservationItems } from "@/redux/features/reserveSlice"; // เพิ่ม import setVenueItems
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
 import Button from "@mui/material/Button";
@@ -15,7 +15,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store"; // ให้แน่ใจว่า import RootState ที่ถูกต้อง
 // import { useSession } from "next-auth/react";
 
-export default function Bookings() {
+export default function Reservations() {
 
     // const { data: session } = useSession(); // Use session to get user data
     // if (!session) {
@@ -30,7 +30,7 @@ export default function Bookings() {
     const [bookDate, setBookDate] = React.useState("");
     const [startTime, setStartTime] = React.useState("");  // สถานะสำหรับเวลาเริ่มต้น
     const [endTime, setEndTime] = React.useState("");      // สถานะสำหรับเวลาสิ้นสุด
-    const venueItems = useSelector((state: RootState) => state.bookSlice.venueItems);
+    const reservationItems = useSelector((state: RootState) => state.reserveSlice.massageshopItems);
 
     // ฟังก์ชันดึงข้อมูลร้านจาก Backend
     const fetchVenues = async (dispatch: AppDispatch) => {
@@ -41,10 +41,10 @@ export default function Bookings() {
     
             // ตรวจสอบว่า data.data เป็น array หรือไม่
             if (Array.isArray(data.data)) {
-                dispatch(setVenueItems(data.data)); // ใช้ data.data เป็น array ของสถานที่
+                dispatch(setReservationItems(data.data)); // ใช้ data.data เป็น array ของสถานที่
             } else {
                 console.error("API ไม่คืนค่าเป็น Array:", data);
-                dispatch(setVenueItems([])); // ป้องกัน error
+                dispatch(setReservationItems([])); // ป้องกัน error
             }
         } catch (error) {
             console.error('Failed to fetch venues:', error);
@@ -67,7 +67,7 @@ export default function Bookings() {
                 endTime
             };
             console.log("Booking Item to Dispatch: ", item);  // Log the item
-            dispatch(addBooking(item)); // Dispatch action to Redux
+            dispatch(addReservation(item)); 
         } else {
             console.log("Incomplete booking details:", { nameLastname, tel, venue, bookDate, startTime, endTime });
         }

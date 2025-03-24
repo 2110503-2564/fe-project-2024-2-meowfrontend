@@ -41,8 +41,8 @@ export const authOptions:AuthOptions = {
         return session;
       },
       async redirect({ url, baseUrl }) {
-        // หลัง Sign-In สำเร็จ ให้ redirect ไปยังหน้า /booking
-        return `${baseUrl}/booking`;
+        // หลัง Sign-In สำเร็จ ให้ redirect ไปยังหน้า /reservation
+        return `${baseUrl}/reservation`;
     }
     },
 };

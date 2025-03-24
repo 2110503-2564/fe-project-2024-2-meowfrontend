@@ -1,8 +1,8 @@
 import Image from "next/image";
-import getVenue from "@/libs/getVenue";
+import getMassageshop from "@/libs/getMassageshop";
 
 export default async function CardDetailPage({ params }: { params: { vid: string } }) {
-    const cardDetail = await getVenue(params.vid);
+    const cardDetail = await getMassageshop(params.vid);
 
     return (
         <main className="text-center p-5">

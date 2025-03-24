@@ -1,4 +1,4 @@
-export interface VenueItem {
+export interface MassageshopItem {
   _id: string;
   name: string;
   address: string;
@@ -11,14 +11,14 @@ export interface VenueItem {
   __v: number;
 }
 
-export interface VenueJson {
+export interface MassageshopJson {
     success: boolean,
     count: number,
     pagination: Object,
-    data: VenueItem[]
+    data: MassageshopItem[]
   }
 
-export interface BookingItem {
+export interface ReservationItem {
     nameLastname: string;
     tel: string;
     venue: string;

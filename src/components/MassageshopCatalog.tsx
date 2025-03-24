@@ -1,3 +1,4 @@
+
 import Card from "./Card"
 import Link from "next/link"
 import { MassageshopJson, MassageshopItem } from '../../interface';
@@ -19,3 +20,4 @@ export default async function MassageshopCatalog({massageshopsJson}:{massageshop
         </>   
     )
 }
+
