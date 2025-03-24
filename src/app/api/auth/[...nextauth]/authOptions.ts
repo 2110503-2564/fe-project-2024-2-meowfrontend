@@ -20,10 +20,11 @@ export const authOptions:AuthOptions = {
             async authorize(credentials, req) {
               if(!credentials) return null
               const user = await userLogin(credentials.email, credentials.password)
+              console.log(user.role)
         
               // If no error and we have user data, return it
               if ( user) {
-                return user
+                return { ...user, role: user.role };
               }else{
               // Return null if user data could not be retrieved
               return null
@@ -34,9 +35,11 @@ export const authOptions:AuthOptions = {
     session: { strategy: "jwt" },
     callbacks: {
       async jwt({token, user}) {
+        console.log('JWT callback', user);
         return {...token, ...user}
       },
       async session({session, token, user}) {
+         console.log('Session callback', token);
         session.user = token as any
         return session;
       },

@@ -32,6 +32,7 @@ export default async function DashboardPage() {
     if(!session || !session.user.token) return null
     const profile = await getUserProfile(session.user.token)
     console.log(profile)
+    console.log("Logged in as:", session.user.email, "Role:", session.user.role);
 
     var createdAt = new Date(profile.data.createdAt)
     return (

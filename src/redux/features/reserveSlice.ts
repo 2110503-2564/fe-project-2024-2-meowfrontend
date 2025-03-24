@@ -11,6 +11,7 @@ export const reserveSlice = createSlice({
   name: "reservation",
   initialState,
   reducers: {
+
     addReservation: (state, action: PayloadAction<ReservationItem>) => {
       const existingReservationIndex = state.reserveItems.findIndex(
         (item) =>
@@ -23,6 +24,7 @@ export const reserveSlice = createSlice({
         state.reserveItems.push(action.payload);
       }
     },
+
     removeReservation: (state, action: PayloadAction<ReservationItem>) => {
       state.reserveItems = state.reserveItems.filter(
         (item) =>
@@ -32,11 +34,25 @@ export const reserveSlice = createSlice({
             item.bookDate === action.payload.bookDate)
       );
     },
+
     clearReservations: (state) => {
       state.reserveItems = [];
     },
+
+    updateReservation(state, action: PayloadAction<ReservationItem>) {
+      const index = state.reserveItems.findIndex(
+        (reservation) => reservation.id === action.payload.id
+      );
+      if (index !== -1) {
+        state.reserveItems[index] = action.payload;
+      }
+    },
+
+    setReservations: (state, action) => {
+      state.reserveItems = action.payload;
+    },    
   },
 });
 
-export const { addReservation, removeReservation, clearReservations } = reserveSlice.actions;
+export const { addReservation, removeReservation, clearReservations, setReservations,  updateReservation } = reserveSlice.actions;
 export default reserveSlice.reducer;
