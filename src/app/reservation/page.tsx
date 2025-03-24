@@ -35,7 +35,7 @@ export default function Reservations() {
     // ฟังก์ชันดึงข้อมูลร้านจาก Backend
     const fetchVenues = async (dispatch: AppDispatch) => {
         try {
-            const response = await fetch('http://localhost:5000/api/v1/massageshops');
+            const response = await fetch('http://localhost:5003/api/v1/massageshops');
             const data = await response.json();
             console.log("Fetched Venues:", data);
     
@@ -74,17 +74,17 @@ export default function Reservations() {
     };
     
     return (
-        <main className="bg-slate-100 m-5 p-5">
+        <main className="bg-yellow-100 m-5 p-5">
             {/* ส่วนของการจองสถานที่ */}
             <main className="w-[100%] flex flex-col items-center space-y-4">
-                <div className="text-xl font-medium">New Booking</div>
+                <div className="text-3xl font-bold text-yellow-950">New Booking</div>
 
                 <div className="w-fit space-y-2">
-                    <div className="text-md text-left text-gray-600">Date Reserve</div>
+                    <div className="text-md text-left text-yellow-600">Date Reserve</div>
                     <DateReserve onChange={setBookDate} />
                 </div>
 
-                <Box component="form" sx={{ '& > :not(style)': { m: 1, width: '25ch' } }} noValidate autoComplete="off">
+                <Box component="form" sx={{ '& > :not(style)': { m: 1, width: '25ch' },'& .MuiInputLabel-root': { color: '#d69e2e' } }} noValidate autoComplete="off">
                     <TextField
                         id="name-lastname"
                         label="Name-Lastname"
@@ -156,9 +156,9 @@ export default function Reservations() {
                 <Button
                     variant="contained"
                     sx={{
-                        backgroundColor: '#93ADDA',
+                        backgroundColor: '#422042',
                         '&:hover': {
-                            backgroundColor: '#6c7a92', 
+                            backgroundColor: '#d69e2e', 
                         },
                     }}
                     onClick={makeBooking} 

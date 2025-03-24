@@ -17,10 +17,10 @@ export default function ReservationList() {
   };
 
   return (
-    <main className="bg-slate-100 m-5 p-5">
-      <div className='text-xl font-medium mb-4'>Booking List</div>
+    <main className="bg-yellow-100 m-5 p-5">
+      <div className='text-xl font-bold mb-4 text-yellow-950'>Reservation List</div>
       {reservations.length === 0 ? (
-        <Typography variant="h6" color="textSecondary">No venue Booking</Typography>
+        <Typography variant="h6" color="textSecondary">No Massage Shop Booking</Typography>
       ) : (
         reservations.map((reservation, index) => (
           <Card key={index} className="mb-4" variant='outlined'>

@@ -89,7 +89,7 @@ export default function CardPanel() {
             ))}
           </div>
     
-          <div className="w-full text-lg font-medium mt-4 ml-5">Venue List with Ratings:</div>
+          <div className="w-full text-lg font-medium mt-4 ml-5">Massage Shop List with Ratings:</div>
     
           {Array.from(state.selectedVenues).map((venueName) => (
             <div
