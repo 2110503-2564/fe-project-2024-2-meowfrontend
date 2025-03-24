@@ -7,7 +7,7 @@ export default async function MassageshopCatalog({massageshopsJson}:{massageshop
     const massageshopsJsonReady = await massageshopsJson;
     return(
         <>    
-        find {massageshopsJsonReady.count} massage shop of in our catalog
+        find {massageshopsJsonReady.count} massage shops of in our catalog
         <div style={{margin:"20px", display:"flex", flexDirection:"row", flexWrap:"wrap", justifyContent:"space-around", alignContent:"space-around"}}>
                    {
                     massageshopsJsonReady.data.map((massageshopsItem: MassageshopItem)=>(

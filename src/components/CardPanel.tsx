@@ -78,9 +78,9 @@ export default function CardPanel() {
         <div>
           <div className="flex flex-wrap justify-around items-start mt-5">
             {mockCardRepo.map((venue) => (
-              <Link href={`/venue/${venue.vid}`} key={venue.vid} className="w-1/5">
+              <Link href={`/massageshop/${venue.vid}`} key={venue.vid} className="w-1/5">
                 <Card
-                  venueName={venue.name}
+                  massageshopName={venue.name}
                   imgSrc={venue.image} 
                   rating={state.venues.get(venue.name) ?? 0}
                   onRate={(venueName, rating) => dispatch({ type: "rate", venueName, rating })}

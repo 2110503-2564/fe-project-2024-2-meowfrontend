@@ -1,5 +1,6 @@
 export interface MassageshopItem {
   _id: string;
+  id: string;
   name: string;
   address: string;
   tel: string;
@@ -20,6 +21,7 @@ export interface MassageshopJson {
 
 export interface ReservationItem {
     nameLastname: string;
+    id: string;
     tel: string;
     venue: string;
     bookDate: string;

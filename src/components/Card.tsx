@@ -3,21 +3,22 @@ import InteractiveCard from './InteractiveCard';
 import { Rating } from '@mui/material';
 
 export default function Card({
-    venueName,
+    massageshopName,
     imgSrc,
     onRate, 
     rating
 }: {
-        venueName:string; 
+        massageshopName:string; 
         imgSrc:string; 
         onRate?:(venueName:string, rating:number)=>void; 
         rating?:number
 }){
 
     console.log('Image Source:', imgSrc);
+    console.log(massageshopName)
   
     return(
-        <InteractiveCard contentName={venueName}>
+        <InteractiveCard contentName={massageshopName}>
             <div className='w-full h-[70%] relative rounded-t-lg'>
                 <Image 
                 src={imgSrc}
@@ -27,19 +28,19 @@ export default function Card({
                 
                 />
             </div>
-            <div className='w-full h-[15%] p-[10px] font-mono'>{venueName}</div>
+            <div className='w-full h-[15%] p-[10px] font-mono text-black'>{massageshopName}</div>
 
             {rating !== undefined && (
                 <Rating 
-                    id={`${venueName} Rating`} 
-                    name={`${venueName} Rating`} 
-                    data-testid={`${venueName} Rating`} 
+                    id={`${massageshopName} Rating`} 
+                    name={`${massageshopName} Rating`} 
+                    data-testid={`${massageshopName} Rating`} 
                     value={rating}
                     onClick={(e) => e.stopPropagation()}
                     onChange={(event, newValue) => {
                         event.stopPropagation(); 
                         if (onRate) {
-                            onRate(venueName, newValue ?? 0);
+                            onRate(massageshopName, newValue ?? 0);
                         }
                     }}
                     className='h-[10%] px-[10px]'

@@ -4,7 +4,7 @@ import DateReserve from "@/components/DateReserve";
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { addReservation, setReservationItems } from "@/redux/features/reserveSlice"; // เพิ่ม import setVenueItems
+import { addReservation } from "@/redux/features/reserveSlice"; // เพิ่ม import setVenueItems
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
 import Button from "@mui/material/Button";
@@ -25,29 +25,30 @@ export default function Reservations() {
     // const userId = session.user._id; // Extract user ID from session
     const dispatch = useDispatch<AppDispatch>();
     const [nameLastname, setNameLastname] = React.useState("");
+    const [id, setid] = React.useState("");
     const [tel, setTel] = React.useState("");
     const [venue, setVenue] = React.useState("");
     const [bookDate, setBookDate] = React.useState("");
     const [startTime, setStartTime] = React.useState("");  // สถานะสำหรับเวลาเริ่มต้น
     const [endTime, setEndTime] = React.useState("");      // สถานะสำหรับเวลาสิ้นสุด
-    const reservationItems = useSelector((state: RootState) => state.reserveSlice.massageshopItems);
+    const reservationItems = useSelector((state: RootState) => state.reserveSlice.reserveItems);
 
     // ฟังก์ชันดึงข้อมูลร้านจาก Backend
     const fetchVenues = async (dispatch: AppDispatch) => {
         try {
             const response = await fetch('http://localhost:5003/api/v1/massageshops');
             const data = await response.json();
-            console.log("Fetched Venues:", data);
+            console.log("Fetched massageshops:", data);
     
             // ตรวจสอบว่า data.data เป็น array หรือไม่
-            if (Array.isArray(data.data)) {
-                dispatch(setReservationItems(data.data)); // ใช้ data.data เป็น array ของสถานที่
-            } else {
-                console.error("API ไม่คืนค่าเป็น Array:", data);
-                dispatch(setReservationItems([])); // ป้องกัน error
-            }
+            // if (Array.isArray(data.data)) {
+            //     dispatch(setReservationItems(data.data)); // ใช้ data.data เป็น array ของสถานที่
+            // } else {
+            //     console.error("API ไม่คืนค่าเป็น Array:", data);
+            //     dispatch(setReservationItems([])); // ป้องกัน error
+            // }
         } catch (error) {
-            console.error('Failed to fetch venues:', error);
+            console.error('Failed to fetch massageshops:', error);
         }
     };
     
@@ -60,6 +61,7 @@ export default function Reservations() {
         if (nameLastname && tel && venue && bookDate && startTime && endTime) {
             const item = {
                 nameLastname,
+                id,
                 tel,
                 venue,
                 bookDate,
