@@ -11,16 +11,18 @@ import getUserProfile from "@/libs/getUserProfile";
 
 export default async function AllReservations() {
   const session = await getServerSession(authOptions);
-  console.log("Logged in as:", session?.user?.email, "Role:", session?.user?.role);
+  if(!session || !session.user.token) return null
+  const profile = await getUserProfile(session.user.token)
+  //console.log("Logged in as:", session?.user?.email, "Role:", session?.user?.role);
 
   if (!session || session.user.role !== "admin") {
     //redirect("/");
     return <p className="text-center text-black-500">You do not have permission to view this page.</p>;
   }
 
-  const profile = await getUserProfile(session.user.token)
+//   const profile = await getUserProfile(session.user.token)
   console.log(profile)
-  console.log("Logged in as:", session.user.email, "Role:", session.user.role);  
+  //console.log("Logged in as:", session.user.email, "Role:", session.user.role);  
 
   await dbConnect();
   const reservations = await Reservation.find();

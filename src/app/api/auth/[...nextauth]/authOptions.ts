@@ -24,7 +24,7 @@ export const authOptions:AuthOptions = {
         
               // If no error and we have user data, return it
               if ( user) {
-                return { ...user, role: user.role };
+                return user
               }else{
               // Return null if user data could not be retrieved
               return null
