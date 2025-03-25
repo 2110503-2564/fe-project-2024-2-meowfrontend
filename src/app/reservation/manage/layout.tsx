@@ -1,10 +1,9 @@
-export default function ManageReservationLayout (
-    {children, dashboard, manage}: {children:React.ReactNode, dashboard:React.ReactNode, manage:React.ReactNode} ) {
-        return (
-            <div className="flex flex-col w-full text-black">
-                {children}
-                {dashboard}
-                {manage}
-            </div>
-        );
-    }
+import styles from '@/components/reservationmenu.module.css';
+
+export default function ReservationLayout({ children }: { children: React.ReactNode }) {
+    return (
+        <div className={styles.sectionlayout}>
+            {children}
+        </div>
+    );
+}
