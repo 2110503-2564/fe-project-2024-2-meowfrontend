@@ -2,7 +2,7 @@ import { ReservationItem } from "../../interface";
 
 export default async function getAllReservations(token: string): Promise<ReservationItem[]> {
     try {
-      const response = await fetch("http://localhost:5003/api/v1/massageshops/reservations", {
+      const response = await fetch("http://localhost:5000/api/v1/massageshops/reservations", {
         method: "GET",
         headers: {
           authorization: `Bearer ${token}`,

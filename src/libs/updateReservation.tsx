@@ -6,7 +6,7 @@ export default async function updateReservationItem(
   updateData: Partial<ReservationItem>
 ): Promise<ReservationItem> {
   try {
-    const response = await fetch(`http://localhost:5003/api/v1/massageshops/reservations/${reservationId}`,
+    const response = await fetch(`http://localhost:5000/api/v1/massageshops/reservations/${reservationId}`,
       {
         method: "PUT",
         headers: {

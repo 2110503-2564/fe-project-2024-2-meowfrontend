@@ -1,136 +1,114 @@
-'use client';
+'use client'; 
 
 import DateReserve from "@/components/DateReserve";
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { addReservation } from "@/redux/features/reserveSlice"; // เพิ่ม import setVenueItems
+import { addReservation } from "@/redux/features/reserveSlice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
 import Button from "@mui/material/Button";
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-import { useEffect } from 'react'; // เพิ่ม import useEffect
+import { useEffect } from 'react';
 import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store"; // ให้แน่ใจว่า import RootState ที่ถูกต้อง
-// import { useSession } from "next-auth/react";
+import { RootState } from "@/redux/store";
 
 export default function Reservations() {
 
-    // const { data: session } = useSession(); // Use session to get user data
-    // if (!session) {
-    //     return <div>Please log in to see your bookings.</div>; // Early return if not logged in
-    // }
-
-    // const userId = session.user._id; // Extract user ID from session
     const dispatch = useDispatch<AppDispatch>();
     const [nameLastname, setNameLastname] = React.useState("");
     const [id, setid] = React.useState("");
     const [tel, setTel] = React.useState("");
     const [venue, setVenue] = React.useState("");
     const [bookDate, setBookDate] = React.useState("");
-    const [startTime, setStartTime] = React.useState("");  // สถานะสำหรับเวลาเริ่มต้น
-    const [endTime, setEndTime] = React.useState("");      // สถานะสำหรับเวลาสิ้นสุด
+    const [startTime, setStartTime] = React.useState("");
+    const [endTime, setEndTime] = React.useState("");
     const reservationItems = useSelector((state: RootState) => state.reserveSlice.reserveItems);
 
-    // ฟังก์ชันดึงข้อมูลร้านจาก Backend
+    // Function to fetch venue data from the backend
     const fetchVenues = async (dispatch: AppDispatch) => {
         try {
-            const response = await fetch('http://localhost:5003/api/v1/massageshops');
+            const response = await fetch('http://localhost:5000/api/v1/massageshops');
             const data = await response.json();
             console.log("Fetched massageshops:", data);
-    
-            // ตรวจสอบว่า data.data เป็น array หรือไม่
-            // if (Array.isArray(data.data)) {
-            //     dispatch(setReservationItems(data.data)); // ใช้ data.data เป็น array ของสถานที่
-            // } else {
-            //     console.error("API ไม่คืนค่าเป็น Array:", data);
-            //     dispatch(setReservationItems([])); // ป้องกัน error
-            // }
         } catch (error) {
             console.error('Failed to fetch massageshops:', error);
         }
     };
-    
-    // ดึงข้อมูลร้านเมื่อคอมโพเนนต์ถูกโหลด
+
     useEffect(() => {
         fetchVenues(dispatch);
     }, []);
-    
+
+    // Function to handle booking
     const makeBooking = () => {
         if (nameLastname && tel && venue && bookDate && startTime && endTime) {
-            const item = {
-                nameLastname,
-                id,
-                tel,
-                venue,
-                bookDate,
-                startTime,
-                endTime
-            };
-            console.log("Booking Item to Dispatch: ", item);  // Log the item
-            dispatch(addReservation(item)); 
+            const item = { nameLastname, id, tel, venue, bookDate, startTime, endTime };
+            console.log("Booking Item to Dispatch: ", item);
+            dispatch(addReservation(item));
         } else {
             console.log("Incomplete booking details:", { nameLastname, tel, venue, bookDate, startTime, endTime });
         }
     };
-    
-    return (
-        <main className="bg-yellow-100 m-5 p-5">
-            {/* ส่วนของการจองสถานที่ */}
-            <main className="w-[100%] flex flex-col items-center space-y-4">
-                <div className="text-3xl font-bold text-yellow-950">New Booking</div>
 
-                <div className="w-fit space-y-2">
-                    <div className="text-md text-left text-yellow-600">Date Reserve</div>
+    return (
+        <main className="bg-gray-50 p-5 rounded-lg shadow-lg">
+            <div className="text-3xl font-semibold text-center text-yellow-800 mb-6">New Booking</div>
+
+            <Box component="form" sx={{ display: 'flex', flexDirection: 'column', gap: 3, maxWidth: 600, mx: 'auto', backgroundColor: '#fff9c4', padding: '20px', borderRadius: '8px' }} noValidate autoComplete="off">
+                <div className="space-y-2">
+                    <div className="text-lg text-yellow-500">Date Reserve</div>
                     <DateReserve onChange={setBookDate} />
                 </div>
 
-                <Box component="form" sx={{ '& > :not(style)': { m: 1, width: '25ch' },'& .MuiInputLabel-root': { color: '#d69e2e' } }} noValidate autoComplete="off">
-                    <TextField
-                        id="name-lastname"
-                        label="Name-Lastname"
-                        variant="standard"
-                        name="Name-Lastname"
-                        value={nameLastname}
-                        onChange={(e) => setNameLastname(e.target.value)}
-                    />
-                    <TextField
-                        id="contact-number"
-                        label="Contact-Number"
-                        variant="standard"
-                        name="Contact-Number"
-                        value={tel}
-                        onChange={(e) => setTel(e.target.value)}
-                    />
-                    <Select
-                        id="venue"
-                        value={venue}
-                        onChange={(e) => setVenue(e.target.value)}
-                        displayEmpty
-                        fullWidth
-                        variant="standard"
-                    >
-                        <MenuItem value="japaneseMassage">Japanese Massage</MenuItem>
-                        <MenuItem value="saltSpaAndMassage">Salt Spa and Massage</MenuItem>
-                        <MenuItem value="massageTherapy">Massage Therapy</MenuItem>
-                        <MenuItem value="networks">Networks</MenuItem>
-                        <MenuItem value="bandwidth">Bandwidth</MenuItem>
-                        <MenuItem value="HimalayanSaltMassage">Himalayan Salt Massage</MenuItem>
-                        <MenuItem value="Relaxing">Relaxing</MenuItem>
-                        <MenuItem value="partnerships">Partnerships</MenuItem>
-                        <MenuItem value="solutions">Solutions</MenuItem>
-                        <MenuItem value="communities">Communities</MenuItem>
-                    </Select>
+                <TextField
+                    id="name-lastname"
+                    label="Name-Lastname"
+                    variant="outlined"
+                    value={nameLastname}
+                    onChange={(e) => setNameLastname(e.target.value)}
+                    fullWidth
+                />
+                <TextField
+                    id="contact-number"
+                    label="Contact-Number"
+                    variant="outlined"
+                    value={tel}
+                    onChange={(e) => setTel(e.target.value)}
+                    fullWidth
+                />
 
-                     {/* ฟิลด์สำหรับเวลาเริ่มต้นและสิ้นสุด */}
-                     <TextField
+                <Select
+                    id="venue"
+                    value={venue}
+                    onChange={(e) => setVenue(e.target.value)}
+                    displayEmpty
+                    fullWidth
+                    variant="outlined"
+                >
+                    <MenuItem value="japaneseMassage">Japanese Massage</MenuItem>
+                    <MenuItem value="saltSpaAndMassage">Salt Spa and Massage</MenuItem>
+                    <MenuItem value="massageTherapy">Massage Therapy</MenuItem>
+                    <MenuItem value="networks">Networks</MenuItem>
+                    <MenuItem value="bandwidth">Bandwidth</MenuItem>
+                    <MenuItem value="HimalayanSaltMassage">Himalayan Salt Massage</MenuItem>
+                    <MenuItem value="Relaxing">Relaxing</MenuItem>
+                    <MenuItem value="partnerships">Partnerships</MenuItem>
+                    <MenuItem value="solutions">Solutions</MenuItem>
+                    <MenuItem value="communities">Communities</MenuItem>
+                </Select>
+
+                {/* Time Picker fields */}
+                <Box sx={{ display: 'flex', gap: 2 }}>
+                    <TextField
                         id="start-time"
                         label="Start Time"
                         type="time"
-                        variant="standard"
+                        variant="outlined"
                         value={startTime}
                         onChange={(e) => setStartTime(e.target.value)}
+                        fullWidth
                         InputLabelProps={{
                             shrink: true,
                         }}
@@ -142,9 +120,10 @@ export default function Reservations() {
                         id="end-time"
                         label="End Time"
                         type="time"
-                        variant="standard"
+                        variant="outlined"
                         value={endTime}
                         onChange={(e) => setEndTime(e.target.value)}
+                        fullWidth
                         InputLabelProps={{
                             shrink: true,
                         }}
@@ -152,22 +131,26 @@ export default function Reservations() {
                             step: 300, // 5 minutes increment
                         }}
                     />
-
                 </Box>
 
                 <Button
                     variant="contained"
                     sx={{
-                        backgroundColor: '#422042',
+                    backgroundColor: '#93ADDA', // สีพื้นหลัง
+                        color: 'black', // เปลี่ยนสีตัวอักษรเป็นสีดำ
                         '&:hover': {
-                            backgroundColor: '#d69e2e', 
-                        },
+                    backgroundColor: '#7A9BC7', // สีเมื่อ hover
+                    },
                     }}
-                    onClick={makeBooking} 
-                >
-                    Book Venue
+                    onClick={makeBooking}
+                    fullWidth
+                        >
+                Book Venue
                 </Button>
-            </main>
+
+
+            </Box>
         </main>
     );
 }
+
